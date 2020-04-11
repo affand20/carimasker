@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "194839615613",
+    "firebase_url": "https://cari-masker.firebaseio.com",
+    "project_id": "cari-masker",
+    "storage_bucket": "cari-masker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194839615613:android:ff198edaba3a0a9860f914",
+        "android_client_info": {
+          "package_name": "id.trydev.carimasker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194839615613-moiou6rkpr230lbkl7s34a3l3o4uq3ij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzZ1viSoeIP_FWMR4N0_NX6xB_z3g0S0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194839615613-moiou6rkpr230lbkl7s34a3l3o4uq3ij.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
