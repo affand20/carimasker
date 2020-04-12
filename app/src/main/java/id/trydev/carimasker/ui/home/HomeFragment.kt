@@ -1,21 +1,19 @@
 package id.trydev.carimasker.ui.home
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
+import android.content.Context
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.mapbox.android.core.location.LocationEngineCallback
-import com.mapbox.android.core.location.LocationEngineProvider
-import com.mapbox.android.core.location.LocationEngineResult
+import com.mapbox.android.core.location.*
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
@@ -27,16 +25,19 @@ import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
-import id.trydev.carimasker.MainActivity
 import id.trydev.carimasker.R
-import id.trydev.carimasker.prefs.AppPreferences
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.lang.Exception
+import java.lang.ref.WeakReference
 
 class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
 
     private var permissionsManager: PermissionsManager = PermissionsManager(this)
     private lateinit var mapboxMap: MapboxMap
+    private lateinit var locationEngine: LocationEngine
+    private val DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L * 3600L
+    private val DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5
+    private val callback = MapsCallback(this)
 
     private var lastLongitude = 0.0
     private var lastLatitude = 0.0
@@ -69,36 +70,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
             Toast.makeText(activity?.applicationContext, "Box Search!", Toast.LENGTH_LONG).show()
         }
 
-        Log.d("CONTEXT", "${context==null}")
-
-        context?.let {
-            if (ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                permissionsManager = PermissionsManager(this)
-                permissionsManager.requestLocationPermissions(activity)
-            }
-            val locationEngine = LocationEngineProvider.getBestLocationEngine(it)
-            locationEngine.getLastLocation(object : LocationEngineCallback<LocationEngineResult>{
-                override fun onSuccess(result: LocationEngineResult?) {
-                    lastLatitude = result?.lastLocation?.latitude?:0.0
-                    lastLongitude = result?.lastLocation?.longitude?:0.0
-
-
-
-//                    MainActivity().prefs.lastLatitude = lastLatitude.toString()
-//                    MainActivity().prefs.lastLatitude = lastLatitude.toString()
-                }
-
-                override fun onFailure(exception: Exception) {
-                    Toast.makeText(context, exception.localizedMessage, Toast.LENGTH_LONG).show()
-                }
-
-            })
-        }
-
-
         fab_recenter.setOnClickListener {
-            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lastLatitude, lastLongitude), 7.0))
+            flyToCurrentLocation()
         }
+
+        homeViewModel.getUpdateResponse().observe(this, Observer {response ->
+            if (response!=null && response.get("isSuccess")==true) {
+//                Toast.makeText(context, "Coordinate Updated!", Toast.LENGTH_SHORT).show()
+            }
+        })
 
     }
 
@@ -117,6 +97,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
             val locationComponentActivationOptions =
                 LocationComponentActivationOptions.builder(context!!, loadedMapStyle)
                     .locationComponentOptions(customLocationComponentOptions)
+                    .useDefaultLocationEngine(false)
                     .build()
 
             // Get an instance of the LocationComponent and then adjust its settings
@@ -134,11 +115,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
                 // Set the LocationComponent's render mode
                 renderMode = RenderMode.COMPASS
             }
+
+            initLocationEngine()
         } else {
             permissionsManager = PermissionsManager(this)
             permissionsManager.requestLocationPermissions(activity)
         }
     }
+
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -155,7 +140,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
 
     override fun onPermissionResult(granted: Boolean) {
         if (granted) {
-            enableLocationComponent(mapboxMap.style!!)
+            if (mapboxMap.getStyle()!=null) {
+                enableLocationComponent(mapboxMap.style!!)
+            }
         } else {
             Toast.makeText(
                 activity,
@@ -193,6 +180,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
     override fun onDestroy() {
         super.onDestroy()
         map_view?.onDestroy()
+        if (locationEngine!=null) {
+            locationEngine.removeLocationUpdates(callback)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -208,5 +198,57 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
 
             // add map layer here
         }
+    }
+
+    private fun flyToCurrentLocation() {
+        mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lastLatitude, lastLongitude), 10.0))
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun initLocationEngine() {
+        context?.let {context ->
+            locationEngine = LocationEngineProvider.getBestLocationEngine(context)
+
+            val request = LocationEngineRequest.Builder(DEFAULT_INTERVAL_IN_MILLISECONDS)
+                .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
+                .setMaxWaitTime(DEFAULT_MAX_WAIT_TIME)
+                .build()
+
+            locationEngine.requestLocationUpdates(request, callback, Looper.getMainLooper())
+            locationEngine.getLastLocation(callback)
+        }
+    }
+
+    inner class MapsCallback(private val fragment:HomeFragment): LocationEngineCallback<LocationEngineResult> {
+
+        private var activityWeakReference: WeakReference<HomeFragment> = WeakReference(fragment)
+
+        override fun onSuccess(result: LocationEngineResult?) {
+            val homeFragment = activityWeakReference.get()
+            if (homeFragment!=null) {
+                result?.locations ?: return
+
+                // if locations not null, then update lat long to firebase here
+
+
+//                Toast.makeText(fragment.context, "Lat: ${result.lastLocation?.latitude}, Long: ${result.lastLocation?.longitude}", Toast.LENGTH_SHORT).show()
+                lastLatitude = result.lastLocation?.latitude?:0.0
+                lastLongitude = result.lastLocation?.longitude?:0.0
+
+                homeViewModel.updateCoordinate(lastLatitude, lastLongitude)
+
+                if (mapboxMap != null && result.lastLocation!=null) {
+                    mapboxMap.locationComponent.forceLocationUpdate(result.lastLocation)
+                }
+            }
+        }
+
+        override fun onFailure(exception: Exception) {
+            val fragment = activityWeakReference.get()
+            if (fragment!=null) {
+                Toast.makeText(fragment.context, "Error: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 }

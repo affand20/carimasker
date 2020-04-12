@@ -12,5 +12,10 @@
         android:left="16dp"
         android:right="16dp" />
 
+    <gradient
+        android:angle="270"
+        android:startColor="@android:color/white"
+        android:endColor="#F6FAFF" />
+
 
 </shape>

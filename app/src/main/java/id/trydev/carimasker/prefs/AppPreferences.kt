@@ -10,6 +10,7 @@ class AppPreferences(context: Context) {
 
     private val LAST_LATITUDE = "LastLatitude"
     private val LAST_LONGITUDE = "LastLongitude"
+    private val UID = "UID"
 
     var lastLatitude: String?
         get() = prefs.getString(LAST_LATITUDE, null)
@@ -19,10 +20,15 @@ class AppPreferences(context: Context) {
         get() = prefs.getString(LAST_LONGITUDE, null)
         set(value) = prefs.edit().putString(LAST_LONGITUDE, value).apply()
 
+    var uid: String?
+        get() = prefs.getString(UID, null)
+        set(value) = prefs.edit().putString(UID, value).apply()
+
     fun resetPreference() {
         val editor = prefs.edit()
         editor.remove(LAST_LATITUDE)
         editor.remove(LAST_LONGITUDE)
+        editor.remove(UID)
         editor.apply()
     }
 

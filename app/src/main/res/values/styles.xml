@@ -10,12 +10,27 @@
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
-<!--        <item name="windowNoTitle">true</item>-->
+        <item name="windowNoTitle">true</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+    <style name="HintStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="MaterialNoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="MaterialNoActionBarBridge" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlNormal">@color/whiteTrans</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -23,6 +38,37 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="TextRegular">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="TextTitle">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="TextTitle.H1">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="TextTitle.H3">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="TextSubtitle">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextRegular.TextSmall" parent="TextRegular">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextRegular.TextButton" parent="TextRegular">
+        <item name="android:textColor">@color/bluePrimary</item>
+    </style>
+
+    <style name="TextInputEdittext">
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
 

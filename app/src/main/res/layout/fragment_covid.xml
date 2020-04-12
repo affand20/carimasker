@@ -77,6 +77,128 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/TextTitle.H3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Update Kasus Corona"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_provinsi" />
+
+            <TextView
+                style="@style/TextRegular.TextButton"
+                android:id="@+id/btn_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="Lihat Detail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="24dp"
+                android:background="@drawable/bg_rounded"
+                app:cardElevation="6dp"
+                app:cardMaxElevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_detail">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/tv_positif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="3842"
+                        android:textColor="@color/orangeAccent"
+                        android:textSize="42sp"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_sembuh"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_sembuh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="286"
+                        android:textColor="@color/green"
+                        android:textSize="42sp"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_meninggal"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tv_positif"
+                        app:layout_constraintTop_toTopOf="@+id/tv_positif" />
+
+                    <TextView
+                        android:id="@+id/tv_meninggal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="327"
+                        android:textColor="@color/red"
+                        android:textSize="42sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tv_sembuh"
+                        app:layout_constraintTop_toTopOf="@+id/tv_sembuh" />
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Positif"
+                        android:textColor="@color/orangeAccent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_positif"
+                        app:layout_constraintStart_toStartOf="@+id/tv_positif"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_positif"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Sembuh"
+                        android:textColor="@color/green"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_sembuh"
+                        app:layout_constraintStart_toStartOf="@+id/tv_sembuh"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_sembuh" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Meninggal"
+                        android:textColor="@color/red"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_meninggal"
+                        app:layout_constraintStart_toStartOf="@+id/tv_meninggal"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_meninggal" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

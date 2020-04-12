@@ -20,9 +20,9 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="id.trydev.carimasker.ui.notifications.NotificationsFragment"
+        android:name="id.trydev.carimasker.ui.akun.AkunFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_akun" />
     <fragment
         android:id="@+id/navigation_chat"
         android:name="id.trydev.carimasker.ChatFragment"
