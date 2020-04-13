@@ -11,6 +11,12 @@ class AppPreferences(context: Context) {
     private val LAST_LATITUDE = "LastLatitude"
     private val LAST_LONGITUDE = "LastLongitude"
     private val UID = "UID"
+    private val MASKER = "MASKER"
+    private val HARGAMASKER = "MASKER"
+    private val APD = "APD"
+    private val HARGAAPD = "APD"
+    private val HANDSANITIZER = "HANDSANITIZER"
+    private val HARGAHANDSANITIZER = "HANDSANITIZER"
 
     var lastLatitude: String?
         get() = prefs.getString(LAST_LATITUDE, null)
@@ -23,6 +29,27 @@ class AppPreferences(context: Context) {
     var uid: String?
         get() = prefs.getString(UID, null)
         set(value) = prefs.edit().putString(UID, value).apply()
+
+    var masker:String?
+        get() = prefs.getString(MASKER, null)
+        set(value) = prefs.edit().putString(MASKER, value).apply()
+    var hargaMasker:String?
+        get() = prefs.getString(HARGAMASKER, null)
+        set(value) = prefs.edit().putString(HARGAMASKER, value).apply()
+
+    var handsanitizer:String?
+        get() = prefs.getString(HANDSANITIZER, null)
+        set(value) = prefs.edit().putString(HANDSANITIZER, value).apply()
+    var hargaHandsanitizer:String?
+        get() = prefs.getString(HARGAHANDSANITIZER, null)
+        set(value) = prefs.edit().putString(HARGAHANDSANITIZER, value).apply()
+
+    var apd:String?
+        get() = prefs.getString(APD, null)
+        set(value) = prefs.edit().putString(APD, value).apply()
+    var hargaApd:String?
+        get() = prefs.getString(HARGAAPD, null)
+        set(value) = prefs.edit().putString(HARGAAPD, value).apply()
 
     fun resetPreference() {
         val editor = prefs.edit()

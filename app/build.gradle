@@ -65,4 +65,8 @@ dependencies {
 
     // dexter
     implementation 'com.karumi:dexter:6.1.0'
+
+    // loopj
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+
 }

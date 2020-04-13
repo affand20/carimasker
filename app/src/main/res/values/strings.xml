@@ -22,10 +22,46 @@
 
     <string-array name="provinsi">
         <item>Jawa Timur</item>
-        <item>DKI Jakarta</item>
-        <item>Jawa Tengah</item>
         <item>Jawa Barat</item>
+        <item>Jawa Tengah</item>
+        <item>DKI Jakarta</item>
+        <item>DI Yogyakarta</item>
+        <item>Aceh</item>
+        <item>Bali</item>
+        <item>Banten</item>
+        <item>Bengkulu</item>
+        <item>Gorontalo</item>
+        <item>Jambi</item>
+        <item>Kalimantan Barat</item>
+        <item>Kalimantan Selatan</item>
+        <item>Kalimantan Tengah</item>
+        <item>Kalimantan Timur</item>
+        <item>Kalimantan Utara</item>
+        <item>Kepulauan Bangka Belitung</item>
+        <item>Kepulauan Riau</item>
+        <item>Lampung</item>
+        <item>Maluku</item>
+        <item>Maluku Utara</item>
+        <item>Nusa Tenggara Barat</item>
+        <item>Nusa Tenggara Timur</item>
+        <item>Papua</item>
+        <item>Papua Barat</item>
+        <item>Riau</item>
+        <item>Sulawesi Barat</item>
+        <item>Sulawesi Selatan</item>
+        <item>Sulawesi Tengah</item>
+        <item>Sulawesi Tenggara</item>
+        <item>Sulawesi Utara</item>
+        <item>Sumatera Barat</item>
         <item>Sumatera Selatan</item>
+        <item>Sumatera Utara</item>
+    </string-array>
+
+    <string name="prompt">Jawa Timur</string>
+
+    <string-array name="menu_profile">
+        <item></item>
+        <item>Keluar</item>
     </string-array>
 
     <string name="mapbox_access_token">pk.eyJ1IjoiYWZmYW5kMjAiLCJhIjoiY2p0bGIxYWhkMDZldzQzb2pkdnh5OWZmcCJ9.mqau-lAF-9yDP5-FLPejiQ</string>

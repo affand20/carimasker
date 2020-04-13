@@ -82,16 +82,241 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_phone_number"
         app:layout_constraintVertical_bias="0.0" />
 
+<!--    <TextView-->
+<!--        android:id="@+id/btn_change_info"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:drawableRight="@drawable/ic_edit"-->
+<!--        android:drawablePadding="8dp"-->
+<!--        android:fontFamily="@font/poppins_semibold"-->
+<!--        android:text="Ubah Profil"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/textView11"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/textView11" />-->
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_rounded"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_address" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bg_rounded"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="6dp"
+        app:cardMaxElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tv_jumlah_masker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="0"
+                android:textColor="#73bcff"
+                android:textSize="42sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/tv_jumlah_handsanitizer"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_masker" />
+
+            <TextView
+                android:id="@+id/tv_jumlah_handsanitizer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="0"
+                android:textColor="#73bcff"
+                android:textSize="42sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/tv_jumlah_apd"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_jumlah_masker"
+                app:layout_constraintTop_toTopOf="@+id/tv_jumlah_masker" />
+
+            <TextView
+                android:id="@+id/tv_jumlah_apd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="0"
+                android:textColor="#73bcff"
+                android:textSize="42sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_jumlah_handsanitizer"
+                app:layout_constraintTop_toTopOf="@+id/tv_jumlah_handsanitizer" />
+
+            <TextView
+                android:id="@+id/tv_masker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Masker"
+                android:textColor="#73bcff"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_jumlah_masker"
+                app:layout_constraintStart_toStartOf="@+id/tv_jumlah_masker"
+                app:layout_constraintTop_toBottomOf="@+id/tv_jumlah_masker"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tv_handsanitizer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Handsanitizer"
+                android:textColor="#73bcff"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_jumlah_handsanitizer"
+                app:layout_constraintStart_toStartOf="@+id/tv_jumlah_handsanitizer"
+                app:layout_constraintTop_toBottomOf="@+id/tv_jumlah_handsanitizer" />
+
+            <TextView
+                android:id="@+id/tv_apd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:maxLines="2"
+                android:text="APD"
+                android:textAlignment="center"
+                android:textColor="#73bcff"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_jumlah_apd"
+                app:layout_constraintStart_toStartOf="@+id/tv_jumlah_apd"
+                app:layout_constraintTop_toBottomOf="@+id/tv_jumlah_apd" />
+
+            <ImageView
+                android:id="@+id/iv_masker"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="24dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_jumlah_masker"
+                app:layout_constraintStart_toStartOf="@+id/tv_jumlah_masker"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_masker" />
+
+            <ImageView
+                android:id="@+id/iv_handsanitizer"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_jumlah_handsanitizer"
+                app:layout_constraintStart_toStartOf="@+id/tv_jumlah_handsanitizer"
+                app:layout_constraintTop_toTopOf="@+id/iv_masker"
+                app:srcCompat="@drawable/ic_handsanitizer" />
+
+            <ImageView
+                android:id="@+id/iv_apd"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_jumlah_apd"
+                app:layout_constraintStart_toStartOf="@+id/tv_jumlah_apd"
+                app:layout_constraintTop_toTopOf="@+id/iv_handsanitizer"
+                app:srcCompat="@drawable/ic_apd" />
+
+            <TextView
+                android:id="@+id/tv_state_empty"
+                style="@style/TextRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Tap tombol plus untuk menambahkan stok barang untuk donasi atau berjualan."
+                android:textAlignment="center"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_state_empty" />
+
+            <ImageView
+                android:id="@+id/iv_state_empty"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.35000002"
+                app:srcCompat="@drawable/ic_add" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ListView
+        android:id="@+id/list_menu_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:entries="@array/menu_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
     <TextView
-        android:id="@+id/btn_change_info"
+        android:id="@+id/textView12"
+        style="@style/TextTitle.H3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="Stok Alat Kesehatan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view2" />
+
+    <TextView
+        android:id="@+id/btn_tambah_stok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:drawableRight="@drawable/ic_edit"
-        android:drawablePadding="8dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Ubah Profil"
-        android:textColor="@android:color/white"
+        android:text="Perbarui"
+        android:textColor="@color/bluePrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView12" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:indeterminateTint="@color/orangeAccent"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView11" />

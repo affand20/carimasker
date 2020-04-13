@@ -26,11 +26,21 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="MaterialNoActionBarBridge" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+    <style name="MaterialNoActionBarBridge.ColorWhite" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorControlActivated">@android:color/white</item>
         <item name="colorControlNormal">@color/whiteTrans</item>
+    </style>
+
+    <style name="MaterialNoActionBarBridge" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.BottomNavigationView"
+        parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

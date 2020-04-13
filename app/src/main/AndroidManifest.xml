@@ -10,9 +10,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
@@ -20,19 +20,19 @@
         <activity
             android:windowSoftInputMode="adjustPan"
             android:name=".ui.onboarding.OnboardingActivity"
-            android:theme="@style/MaterialNoActionBarBridge">
+            android:theme="@style/MaterialNoActionBarBridge.ColorWhite">
 
         </activity>
         <activity
             android:name=".ui.register.RegisterActivity"
-            android:theme="@style/MaterialNoActionBarBridge" />
+            android:theme="@style/MaterialNoActionBarBridge.ColorWhite" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/MaterialNoActionBarBridge">
+            android:theme="@style/MaterialNoActionBarBridge.ColorWhite">
 
         </activity>
-        <activity android:name=".SplashActivity" android:theme="@style/MaterialNoActionBarBridge">
+        <activity android:name=".SplashActivity" android:theme="@style/MaterialNoActionBarBridge.ColorWhite">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,7 +42,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/MaterialNoActionBar"></activity>
+            android:theme="@style/MaterialNoActionBarBridge"></activity>
     </application>
 
 </manifest>

@@ -1,7 +1,9 @@
 package id.trydev.carimasker.ui.home
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -13,9 +15,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.firebase.auth.FirebaseAuth
 import com.mapbox.android.core.location.*
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
+import com.mapbox.geojson.Feature
+import com.mapbox.geojson.Point
+import com.mapbox.mapboxsdk.annotations.IconFactory
+import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
@@ -26,18 +33,24 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import id.trydev.carimasker.R
+import id.trydev.carimasker.model.User
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.lang.Exception
 import java.lang.ref.WeakReference
 
-class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
+class HomeFragment : Fragment(), OnMapReadyCallback, MapboxMap.OnMapClickListener, PermissionsListener {
 
     private var permissionsManager: PermissionsManager = PermissionsManager(this)
     private lateinit var mapboxMap: MapboxMap
     private lateinit var locationEngine: LocationEngine
-    private val DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L * 3600L
+    private val DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L * 60L
     private val DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5
     private val callback = MapsCallback(this)
+
+    private val mAuth = FirebaseAuth.getInstance()
+
+    private val listFeature = mutableListOf<Feature>()
+    private val listUser = mutableListOf<User>()
+    private lateinit var user: List<User>
 
     private var lastLongitude = 0.0
     private var lastLatitude = 0.0
@@ -52,11 +65,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_home)
-//        homeViewModel.text.observe(this, Observer {
-//            textView.text = it
-//        })
-        Log.d("CONTEXT","${context==null}")
+
         return root
     }
 
@@ -66,19 +75,76 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
         map_view?.onCreate(savedInstanceState)
         map_view.getMapAsync(this)
 
-        box_search.setOnClickListener {
-            Toast.makeText(activity?.applicationContext, "Box Search!", Toast.LENGTH_LONG).show()
-        }
+//        box_search.setOnClickListener {
+//            Toast.makeText(activity?.applicationContext, "Box Search!", Toast.LENGTH_LONG).show()
+//        }
 
         fab_recenter.setOnClickListener {
             flyToCurrentLocation()
         }
 
+        btn_hubungi_penjual.setOnClickListener {
+            var phone = user[0].phone?.replace("+", "")?.replace(" ", "")
+            if (phone?.get(0) == '0') {
+                phone = phone.replaceFirst("0","62")
+            }
+//            toNumber = toNumber.replace("+","").replace(" ","")
+            val sendIntent = Intent("android.intent.action.MAIN")
+            sendIntent.putExtra("jid", "$phone@s.whatsapp.net")
+            sendIntent.putExtra(Intent.EXTRA_TEXT, """
+                Hai, saya tertarik dengan masker/handsanitizer/apdnya.
+                Bolehkah saya dapat info lebih lanjut?
+            """.trimIndent())
+            sendIntent.setAction(Intent.ACTION_SEND)
+            sendIntent.setPackage("com.whatsapp")
+            sendIntent.setType("text/plain")
+            startActivity(sendIntent)
+
+            Log.d("CLICK BUTTON", "CLICKED")
+        }
+
         homeViewModel.getUpdateResponse().observe(this, Observer {response ->
             if (response!=null && response.get("isSuccess")==true) {
-//                Toast.makeText(context, "Coordinate Updated!", Toast.LENGTH_SHORT).show()
+                Log.d("UPDATE COORDINATE", "Success!")
             }
         })
+
+//        if (this::mapboxMap.isInitialized) {
+            homeViewModel.getAllUserLocation().observe(this, Observer { response ->
+                if (response!=null) {
+                    if (response["isSuccess"]==false) {
+                        Toast.makeText(context, "${response["message"]}", Toast.LENGTH_LONG).show()
+                    } else {
+                        val list = response["data"] as List<User>
+                        list.forEach {
+                            val feature = Feature.fromGeometry(
+                                Point.fromLngLat(it.longitude!!, it.latitude!!)
+                            )
+                            listFeature.add(feature)
+                            if ((it.masker!=null || it.handsanitizer!=null || it.apd!=null)
+                                && it.uid!=mAuth.currentUser?.uid) {
+                                listUser.add(it)
+                            }
+                        }
+                        Log.d("RESPONSE LIST USER", "$listUser")
+                        listUser.forEach {
+                            val iconFactory = IconFactory.getInstance(context!!)
+                            val icon = iconFactory.fromResource(R.drawable.marker)
+                            if (it.longitude!=null && it.latitude!=null) {
+                                Log.d("ADD MARKER", "MASUK")
+                                mapboxMap.addMarker(
+                                    MarkerOptions()
+                                        .position(LatLng(it.latitude!!, it.longitude!!))
+                                        .icon(icon)
+                                        .title(it.uid)
+                                )
+                            }
+                        }
+                    }
+                }
+            })
+//        }
+
 
     }
 
@@ -140,7 +206,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
 
     override fun onPermissionResult(granted: Boolean) {
         if (granted) {
-            if (mapboxMap.getStyle()!=null) {
+            if (mapboxMap.style !=null) {
                 enableLocationComponent(mapboxMap.style!!)
             }
         } else {
@@ -193,15 +259,62 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
     override fun onMapReady(mapboxMap: MapboxMap) {
         this.mapboxMap = mapboxMap
         this.mapboxMap.uiSettings.isCompassEnabled = false
-        this.mapboxMap.setStyle(Style.MAPBOX_STREETS) {
-            enableLocationComponent(it)
+
+        this.mapboxMap.setStyle(Style.Builder().fromUri(Style.LIGHT)) {style->
+            enableLocationComponent(style)
+
+            mapboxMap.addOnMapClickListener(this)
 
             // add map layer here
+            mapboxMap.setOnMarkerClickListener {marker ->
+
+
+                user = listUser.filter {
+                    it.uid == marker.title
+                }
+                mapboxMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        LatLng(user[0].latitude!!, user[0].longitude!!), 13.0))
+
+                user[0].uid?.let {
+                    fab_recenter.hide()
+                    cardView.visibility = View.VISIBLE
+                    cardView.animate()
+                        .translationY(0f)
+                        .alpha(1f)
+                    progress_bar.visibility = View.VISIBLE
+                    tv_name_penydia.text = user[0].fullname
+                    homeViewModel.getUpdateStok(it).observe(this, Observer {response ->
+                        if (response!=null) {
+                            progress_bar.visibility = View.GONE
+                            if (response["isSuccess"] == false) {
+                                Toast.makeText(context, "${response["message"]}", Toast.LENGTH_LONG).show()
+                            } else {
+                                val masker = response["masker"] as HashMap<*, *>?
+                                val handsanitizer = response["handsanitizer"] as HashMap<*, *>?
+                                val apd = response["apd"] as HashMap<*, *>?
+
+                                if (masker!=null) {
+                                    tv_jumlah_masker.text = masker["jumlah"].toString()
+                                }
+                                if (handsanitizer!=null) {
+                                    tv_jumlah_handsanitizer.text = handsanitizer["jumlah"].toString()
+                                }
+                                if (apd!=null) {
+                                    tv_jumlah_apd.text = apd["jumlah"].toString()
+                                }
+                            }
+                        }
+                    })
+                }
+
+                true
+            }
         }
     }
 
     private fun flyToCurrentLocation() {
-        mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lastLatitude, lastLongitude), 10.0))
+        mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lastLatitude, lastLongitude), 8.0))
     }
 
     @SuppressLint("MissingPermission")
@@ -228,10 +341,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
             if (homeFragment!=null) {
                 result?.locations ?: return
 
-                // if locations not null, then update lat long to firebase here
-
-
-//                Toast.makeText(fragment.context, "Lat: ${result.lastLocation?.latitude}, Long: ${result.lastLocation?.longitude}", Toast.LENGTH_SHORT).show()
                 lastLatitude = result.lastLocation?.latitude?:0.0
                 lastLongitude = result.lastLocation?.longitude?:0.0
 
@@ -250,5 +359,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
             }
         }
 
+    }
+
+    override fun onMapClick(point: LatLng): Boolean {
+        Log.d("ON MAP CLICK", "CLICKED!")
+        if (cardView.visibility == View.VISIBLE) {
+            cardView.animate()
+                .translationY(300f)
+                .alpha(0f)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(p0: Animator?) {
+                        fab_recenter.show()
+                    }
+
+                })
+
+        }
+        return true
     }
 }
