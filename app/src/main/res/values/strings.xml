@@ -60,7 +60,9 @@
     <string name="prompt">Jawa Timur</string>
 
     <string-array name="menu_profile">
-        <item></item>
+        <item>Katalog Saya</item>
+        <item>Riwayat Self-Checkup</item>
+        <item>Tentang Aplikasi</item>
         <item>Keluar</item>
     </string-array>
 

@@ -87,9 +87,9 @@
         mapbox:cardCornerRadius="24dp"
         mapbox:cardElevation="6dp"
         mapbox:cardMaxElevation="10dp"
-        mapbox:layout_constraintEnd_toEndOf="parent"
-        mapbox:layout_constraintStart_toStartOf="parent"
-        mapbox:layout_constraintTop_toBottomOf="@+id/textView12">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -311,6 +311,7 @@
                 app:chipBackgroundColor="@color/bluePrimary"
                 android:text="Info Selengkapnya"
                 app:chipIcon="@drawable/ic_info"
+                android:textAppearance="@style/chipText"
                 app:chipIconTint="@android:color/white"
                 app:iconStartPadding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
