@@ -23,9 +23,9 @@
         android:name="id.trydev.carimasker.ui.akun.AkunFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_akun" />
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_chat"-->
-<!--        android:name="id.trydev.carimasker.ChatFragment"-->
-<!--        android:label="fragment_chat"-->
-<!--        tools:layout="@layout/fragment_chat" />-->
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="id.trydev.carimasker.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>

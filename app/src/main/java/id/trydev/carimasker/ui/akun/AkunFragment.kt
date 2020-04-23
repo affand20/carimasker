@@ -287,18 +287,18 @@ class AkunFragment : Fragment() {
                 return false
             }
             if (!cbDonasiMasker.isChecked && countMasker>0 && hargaMasker <=0) {
-                edt_harga_masker.requestFocus()
-                edt_harga_masker.error = "Wajib diisi!"
+                edtPriceMasker.requestFocus()
+                edtPriceMasker.error = "Wajib diisi!"
                 return false
             }
             if (!cbDonasiHandsanitizer.isChecked && countHandsanitizer>0 && hargaHandsanitizer <=0) {
-                edt_harga_handsanitizer.requestFocus()
-                edt_harga_handsanitizer.error = "Wajib diisi!"
+                edtPriceHandsanitizer.requestFocus()
+                edtPriceHandsanitizer.error = "Wajib diisi!"
                 return false
             }
             if (!cbDonasiApd.isChecked && countApd>0 && hargaApd <=0) {
-                edt_harga_apd.requestFocus()
-                edt_harga_apd.error = "Wajib diisi!"
+                edtPriceApd.requestFocus()
+                edtPriceApd.error = "Wajib diisi!"
                 return false
             }
             return true
@@ -343,8 +343,24 @@ class AkunFragment : Fragment() {
                     if (response!=null) {
                         progressBar.visibility = View.GONE
                         if (response["isSuccess"] == true) {
+                            iv_state_empty.visibility = View.GONE
+                            tv_state_empty.visibility = View.GONE
+
+                            iv_masker.visibility = View.VISIBLE
+                            tv_jumlah_masker.visibility = View.VISIBLE
+                            tv_masker.visibility = View.VISIBLE
+
+                            iv_handsanitizer.visibility = View.VISIBLE
+                            tv_jumlah_handsanitizer.visibility = View.VISIBLE
+                            tv_handsanitizer.visibility = View.VISIBLE
+
+                            iv_apd.visibility = View.VISIBLE
+                            tv_jumlah_apd.visibility = View.VISIBLE
+                            tv_apd.visibility = View.VISIBLE
+
                             alertDialog.dismiss()
-                        } else {
+
+                        } else if (response["isSuccess"] == false){
                             btnSubmit.visibility = View.VISIBLE
                             Toast.makeText(context, "${response["message"]}", Toast.LENGTH_LONG).show()
                         }
@@ -354,24 +370,12 @@ class AkunFragment : Fragment() {
         }
 
         btn_tambah_stok.setOnClickListener {
-//            prefs.masker?.let {
                 countMasker = jumlahMasker.toInt()
-//            }
-//            prefs.hargaMasker?.let {
                 hargaMasker = this.hargaMasker.toInt()
-//            }
-//            prefs.hargaHandsanitizer?.let {
                 hargaHandsanitizer = hargahts.toInt()
-//            }
-//            prefs.hargaApd?.let {
                 hargaApd = this.hargaApd.toInt()
-//            }
-//            prefs.handsanitizer?.let {
                 countHandsanitizer = jumlahHts.toInt()
-//            }
-//            prefs.apd?.let {
                 countApd = jumlahApd.toInt()
-//            }
 
             tvCountMasker.text = jumlahMasker.toString()
             tvCountApd.text = jumlahApd.toString()
@@ -388,32 +392,20 @@ class AkunFragment : Fragment() {
         }
 
         iv_state_empty.setOnClickListener{
-            prefs.masker?.let {
-                countMasker = it.toInt()
-            }
-            prefs.hargaMasker?.let {
-                hargaMasker = it.toInt()
-            }
-            prefs.hargaHandsanitizer?.let {
-                hargaHandsanitizer = it.toInt()
-            }
-            prefs.hargaApd?.let {
-                hargaApd = it.toInt()
-            }
-            prefs.handsanitizer?.let {
-                countHandsanitizer = it.toInt()
-            }
-            prefs.apd?.let {
-                countApd = it.toInt()
-            }
+            countMasker = jumlahMasker.toInt()
+            hargaMasker = this.hargaMasker.toInt()
+            hargaHandsanitizer = hargahts.toInt()
+            hargaApd = this.hargaApd.toInt()
+            countHandsanitizer = jumlahHts.toInt()
+            countApd = jumlahApd.toInt()
 
-            tvCountMasker.text = prefs.masker.toString()
-            tvCountApd.text = prefs.apd.toString()
-            tvCountHandsanitizer.text = prefs.handsanitizer.toString()
+            tvCountMasker.text = jumlahMasker.toString()
+            tvCountApd.text = jumlahApd.toString()
+            tvCountHandsanitizer.text = jumlahHts.toString()
 
-            edtPriceMasker.setText(prefs.hargaMasker.toString())
-            edtPriceApd.setText(prefs.hargaApd.toString())
-            edtPriceHandsanitizer.setText(prefs.hargaHandsanitizer.toString())
+            edtPriceMasker.setText(hargaMasker.toString())
+            edtPriceApd.setText(hargaApd.toString())
+            edtPriceHandsanitizer.setText(hargahts.toString())
             if (!::alertDialog.isInitialized) {
                 alertDialog = builder.show()
             } else {
@@ -422,32 +414,20 @@ class AkunFragment : Fragment() {
         }
 
         tv_state_empty.setOnClickListener {
-            prefs.masker?.let {
-                countMasker = it.toInt()
-            }
-            prefs.hargaMasker?.let {
-                hargaMasker = it.toInt()
-            }
-            prefs.hargaHandsanitizer?.let {
-                hargaHandsanitizer = it.toInt()
-            }
-            prefs.hargaApd?.let {
-                hargaApd = it.toInt()
-            }
-            prefs.handsanitizer?.let {
-                countHandsanitizer = it.toInt()
-            }
-            prefs.apd?.let {
-                countApd = it.toInt()
-            }
+            countMasker = jumlahMasker.toInt()
+            hargaMasker = this.hargaMasker.toInt()
+            hargaHandsanitizer = hargahts.toInt()
+            hargaApd = this.hargaApd.toInt()
+            countHandsanitizer = jumlahHts.toInt()
+            countApd = jumlahApd.toInt()
 
-            tvCountMasker.text = prefs.masker.toString()
-            tvCountApd.text = prefs.apd.toString()
-            tvCountHandsanitizer.text = prefs.handsanitizer.toString()
+            tvCountMasker.text = jumlahMasker.toString()
+            tvCountApd.text = jumlahApd.toString()
+            tvCountHandsanitizer.text = jumlahHts.toString()
 
-            edtPriceMasker.setText(prefs.hargaMasker.toString())
-            edtPriceApd.setText(prefs.hargaApd.toString())
-            edtPriceHandsanitizer.setText(prefs.hargaHandsanitizer.toString())
+            edtPriceMasker.setText(hargaMasker.toString())
+            edtPriceApd.setText(hargaApd.toString())
+            edtPriceHandsanitizer.setText(hargahts.toString())
             if (!::alertDialog.isInitialized) {
                 alertDialog = builder.show()
             } else {

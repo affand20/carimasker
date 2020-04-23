@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.crashlytics.android.Crashlytics
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import id.trydev.carimasker.prefs.AppPreferences
@@ -24,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         prefs = AppPreferences(this)
 
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
+
+        val crash = Crashlytics.getInstance()
+
 
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
