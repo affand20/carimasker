@@ -40,9 +40,13 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.0.0'
     implementation 'androidx.annotation:annotation:1.0.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    // viewpager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-beta02'
 
     // material design
     implementation 'com.google.android.material:material:1.0.0'
@@ -77,5 +81,12 @@ dependencies {
     // crashlytics
     implementation 'com.google.firebase:firebase-analytics:17.3.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+    // skeleton & shimmer
+    implementation 'com.faltenreich:skeletonlayout:2.0.1'
+
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
+
+    implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
 
 }

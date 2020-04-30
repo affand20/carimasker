@@ -12,11 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import id.trydev.carimasker.R
 import id.trydev.carimasker.model.Corona
+import id.trydev.carimasker.ui.infocovid.InfoCovidViewModel
 import kotlinx.android.synthetic.main.fragment_covid.*
 
-class CovidFragment : Fragment() {
+class InfoCovidFragment : Fragment() {
 
-    private lateinit var covidViewModel: CovidViewModel
+    private lateinit var covidViewModel: InfoCovidViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +25,7 @@ class CovidFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         covidViewModel =
-            ViewModelProviders.of(this).get(CovidViewModel::class.java)
+            ViewModelProviders.of(this).get(InfoCovidViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_covid, container, false)
 
         return root

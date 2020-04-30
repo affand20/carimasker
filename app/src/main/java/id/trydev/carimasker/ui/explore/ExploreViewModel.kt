@@ -1,4 +1,4 @@
-package id.trydev.carimasker.ui.home
+package id.trydev.carimasker.ui.explore
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import id.trydev.carimasker.model.User
 
-class HomeViewModel : ViewModel() {
+class ExploreViewModel : ViewModel() {
 
     private val mFirestore = FirebaseFirestore.getInstance()
     private val mAuth = FirebaseAuth.getInstance()
@@ -41,6 +41,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getUpdateResponse(): LiveData<HashMap<String, Any>> {
+
         return updateResponse
     }
 

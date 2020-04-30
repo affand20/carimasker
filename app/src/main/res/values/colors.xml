@@ -4,8 +4,14 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="bluePrimary">#2CAADE</color>
+    <color name="bluePrimarySoft">#80C9EE</color>
+    <color name="bluePrimaryStrong">#2CAADE</color>
+    <color name="blueStockButton">#32B1E5</color>
     <color name="green">#6CCE00</color>
     <color name="red">#D0021B</color>
     <color name="orangeAccent">#F2994A</color>
     <color name="whiteTrans">#80FFFFFF</color>
+    <color name="grey">#A5A5A5</color>
+    <color name="grey_search">#33C4C4C4</color>
+    <color name="soft_blue">#F9FCFF</color>
 </resources>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    tools:context=".ui.katalog.detail.DetailFragment">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/page_title"
+            style="@style/TextTitle.H3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Katalog Saya"
+            android:textColor="@color/bluePrimary" />
+
+        <ImageButton
+            android:id="@+id/nav_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_chevron_left" />
+
+        <ImageButton
+            android:id="@+id/btn_delete_catalog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            android:background="@android:color/transparent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            />
+
+    </Toolbar>
+
+    <com.yarolegovich.discretescrollview.DiscreteScrollView
+        android:id="@+id/rv_katalog_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="always"
+        app:dsv_orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:listitem="@layout/item_katalog_preview" />
+
+    <ImageButton
+        android:id="@+id/fab_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_top_left"
+        android:src="@drawable/ic_edit_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline12" />
+
+    <TextView
+        android:id="@+id/tv_category"
+        style="@style/TextRegular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/tv_outlined"
+        android:text="Masker"
+        android:textColor="@color/bluePrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_katalog_preview" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/TextSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Masker Kain"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_category" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        style="@style/TextRegular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Gratis"
+        android:textColor="@color/bluePrimary"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/bg_stock_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/rv_katalog_preview" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="58dp" />
+
+    <TextView
+        android:id="@+id/btn_add_stock"
+        style="@style/TextRegular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn_stock"
+        android:elevation="6dp"
+        android:text="+"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/tv_stock_count"
+        app:layout_constraintEnd_toEndOf="@+id/tv_stock_count"
+        app:layout_constraintStart_toStartOf="@+id/tv_stock_count"
+        app:layout_constraintTop_toTopOf="@+id/view3" />
+
+    <TextView
+        android:id="@+id/btn_min_stock"
+        style="@style/TextRegular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn_stock"
+        android:elevation="6dp"
+        android:text="-"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="@+id/tv_stock_count"
+        app:layout_constraintStart_toStartOf="@+id/tv_stock_count"
+        app:layout_constraintTop_toBottomOf="@+id/tv_stock_count" />
+
+    <TextView
+        android:id="@+id/tv_stock_count"
+        style="@style/TextRegular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_min_stock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_stock" />
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:id="@+id/tv_description"
+        style="@style/TextRegular"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea "
+        app:layout_constraintEnd_toEndOf="@id/guideline12"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

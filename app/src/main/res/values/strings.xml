@@ -66,6 +66,15 @@
         <item>Keluar</item>
     </string-array>
 
+    <string-array name="catalog_category">
+        <item>Masker</item>
+        <item>Hand Sanitizer</item>
+        <item>Thermal Gun</item>
+        <item>Alat Pelindung Diri</item>
+        <item>Sarung Tangan</item>
+        <item>Lainnya</item>
+    </string-array>
+
     <string name="mapbox_access_token">pk.eyJ1IjoiYWZmYW5kMjAiLCJhIjoiY2p0bGIxYWhkMDZldzQzb2pkdnh5OWZmcCJ9.mqau-lAF-9yDP5-FLPejiQ</string>
 
     <string name="user_location_permission_explanation">This app needs location permissions to show its functionality.</string>
@@ -82,4 +91,5 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="total_catalogs">x %1d</string>
 </resources>

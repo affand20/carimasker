@@ -1,6 +1,7 @@
 package id.trydev.carimasker
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
 
-        val crash = Crashlytics.getInstance()
+        Crashlytics.getInstance()
 
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -39,6 +40,21 @@ class MainActivity : AppCompatActivity() {
 //        )
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val listBottomMenu = arrayOf(
+            R.id.navigation_explore,
+            R.id.navigation_info_covid,
+            R.id.navigation_chat,
+            R.id.navigation_profile
+        )
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id in listBottomMenu) {
+                navView.visibility = View.VISIBLE
+            } else {
+                navView.visibility = View.GONE
+            }
+        }
 
     }
 }

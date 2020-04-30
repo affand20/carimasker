@@ -52,12 +52,12 @@ class OnboardingActivity : AppCompatActivity() {
         onboardingViewModel.getResponse().observe(this, Observer {response ->
             if (response!=null) {
                 progressBar.visibility = View.GONE
-                if (response.get("isSuccess")==true) {
+                if (response["isSuccess"] ==true) {
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
                     btn_submit.visibility = View.VISIBLE
-                    Toast.makeText(this, "${response.get("message")}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "${response["message"]}", Toast.LENGTH_LONG).show()
                 }
             }
         })

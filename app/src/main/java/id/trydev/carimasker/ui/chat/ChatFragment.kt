@@ -1,12 +1,11 @@
-package id.trydev.carimasker
+package id.trydev.carimasker.ui.chat
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import id.trydev.carimasker.R
 
 class ChatFragment : Fragment() {
 
